@@ -44,6 +44,14 @@ public class Game {
         this.longDescription = longDescription;
     }
 
+    public int getYear(){
+        return year;
+    }
+
+    public void setYear(int year){
+        this.year = year;
+    }
+
     public Long getId() {
         return id;
     }
