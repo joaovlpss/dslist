@@ -15,6 +15,7 @@ import com.joaovlpss.dslist.repositories.GameRepository;
 import com.joaovlpss.dslist.dto.GameDTO;
 import com.joaovlpss.dslist.dto.GameMinDTO;
 import com.joaovlpss.dslist.entities.Game;
+import com.joaovlpss.dslist.projections.GameMinProjection;
 
 @Service
 public class GameService {
@@ -27,7 +28,6 @@ public class GameService {
 
     @Transactional(readOnly = true)
     public List<GameMinDTO> findAll(){
-    // Spring automatically does the queries and returns the results
     List<Game> result = gameRepository.findAll();
     List<GameMinDTO> dto = result.stream().map(x -> new GameMinDTO(x)).toList();
     return dto;
@@ -42,5 +42,12 @@ public class GameService {
             return new GameDTO(entity);
         }
             return null;
-        }
     }
+
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> findByList(Long listId){
+    List<GameMinProjection> result = gameRepository.searchByList(listId);
+    List<GameMinDTO> dto = result.stream().map(x -> new GameMinDTO(x)).toList();
+    return dto;
+    }
+}
